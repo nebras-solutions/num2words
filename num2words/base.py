@@ -109,11 +109,14 @@ class Num2Word_Base(object):
         words, num = self.clean(val)
         return self.title(out + words)
 
-    def float2tuple(self, value):
+    def float2tuple(self, value, precision=False):
         pre = int(value)
 
         # Simple way of finding decimal places to update the precision
-        self.precision = abs(Decimal(str(value)).as_tuple().exponent)
+        if not precision:
+            self.precision = abs(Decimal(str(value)).as_tuple().exponent)
+        else:
+            self.precision = precision
 
         post = abs(value - pre) * 10**self.precision
         if abs(round(post) - post) < 0.01:
@@ -211,11 +214,11 @@ class Num2Word_Base(object):
 
     # //CHECK: generalise? Any others like pounds/shillings/pence?
     def to_splitnum(self, val, hightxt="", lowtxt="", jointxt="",
-                    divisor=100, longval=True, cents=True):
+                    divisor=100, longval=True, cents=True, precision=False):
         out = []
 
         if isinstance(val, float):
-            high, low = self.float2tuple(val)
+            high, low = self.float2tuple(val, precision)
         else:
             try:
                 high, low = val
