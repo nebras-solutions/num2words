@@ -22,6 +22,6 @@ from .lang_FR import Num2Word_FR
 class Num2Word_FR_DZ(Num2Word_FR):
     def to_currency(self, val, longval=True, cents=True, jointxt="virgule"):
         return self.to_splitnum(
-            val, hightxt="dinard/s", lowtxt="centime/s", divisor=1,
+            val, hightxt="dinar/s", lowtxt="centime/s", divisor=1,
             jointxt=jointxt, longval=longval, cents=cents
         )
